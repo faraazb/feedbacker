@@ -14,12 +14,12 @@ def product(id: ObjectId):
         return db.update_product(id, request.json)
 
 
-@products.route('/', methods=['POST'])
+@products.route('', methods=['POST'])
 def create_product():
     data = request.json
     product = {
         'name': data['name'],
-        'owner': data['user_id']
+        'owner': ObjectId(data['user_id'])
     }
     return jsonify(db.create_product(product))
 
@@ -35,7 +35,8 @@ def testimonials(product_id: ObjectId):
             'title': data['title'],
             'body': data['body'],
             'author': data['author'],
-            'author_img': data['author_img'],
+            'author_img': data['authorImg'],
+            'author_role': data['authorRole'],
             'starred': data['starred']
         }
         return jsonify(db.create_testimonial(testimonial))

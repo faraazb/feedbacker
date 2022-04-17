@@ -19,3 +19,8 @@ def create_user():
         'email': data['email']
     }
     return jsonify(db.create_user(user))
+
+
+@users.route('/<ObjectId:user_id>/products', methods=['GET'])
+def get_products(user_id: ObjectId):
+    return jsonify(db.get_products_by_owner(user_id))

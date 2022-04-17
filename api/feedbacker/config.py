@@ -44,8 +44,9 @@ test_data = {
             'product_id': product_id1,
             'title': 'Wow!',
             'body': 'I did not expect managing testimonials to be this easy!',
-            'author': 'Faraaz B',
-            'author_img': None
+            'author': 'Joe Smith',
+            'author_img': None,
+            'author_role': 'SomeRole, SomeCompany'
         }
     ]
 }

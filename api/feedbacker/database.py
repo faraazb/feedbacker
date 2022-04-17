@@ -2,6 +2,7 @@ from flask import current_app
 from flask.cli import with_appcontext
 from flask_pymongo import PyMongo
 import click
+from pprint import pprint
 from pymongo.errors import ConnectionFailure, OperationFailure
 from werkzeug.local import LocalProxy
 from bson.objectid import ObjectId
@@ -39,7 +40,7 @@ db = LocalProxy(get_db)
 def init_db():
     if db is None:
         return False
-    print(test_data)
+    pprint(test_data)
     db.drop_collection('user')
     db.drop_collection('product')
     db.drop_collection('testimonial')
@@ -67,7 +68,15 @@ def get_user(id: ObjectId):
 def create_user(user):
     insert_result = db.user.insert_one(user)
     return insert_result.inserted_id
-    
+
+
+def get_products_by_owner(user_id: ObjectId):
+    products = list(db.product.find({'owner': user_id}))
+    for product in products:
+        product['testimonials'] = db.testimonial.count_documents({'product_id': product['_id']})
+        product['testimonials_starred'] = db.testimonial.count_documents({'product_id': product['_id'], 'starred': True})
+    return products
+
 
 def get_product(id: ObjectId):
     return db.product.find_one_or_404({'_id': id})
@@ -75,7 +84,8 @@ def get_product(id: ObjectId):
 
 def create_product(product):
     insert_result = db.product.insert_one(product)
-    return insert_result.inserted_id
+    if insert_result.inserted_id:
+        return get_product(insert_result.inserted_id) 
 
 
 def update_product(id: ObjectId, product):
@@ -101,3 +111,10 @@ def update_testimonial(id: ObjectId, testimonial):
     update_result = db.testimonial.update_one({'_id': id}, {'$set': testimonial})
     if update_result.modified_count == 1:
         return get_testimonial(id) 
+
+
+def delete_testimonial(id: ObjectId):
+    delete_result = db.testimonial.delete_one({'_id': id})
+    if delete_result.deleted_count == 1:
+        return True
+    return False

@@ -1,0 +1,19 @@
+#thank-you {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+}
+
+.made-with {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.feedbacker-link {
+    color: teal;
+    text-decoration: underline;
+}

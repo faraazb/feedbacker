@@ -1,0 +1,46 @@
+.card {
+    padding: 25px;
+    /* min-height: 280px; */
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4%;
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;; */
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.card .author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.card .author .author-name {
+    display: flex;
+    flex-direction: column;
+    margin-left: 25px;
+}
+
+.card .author-image .avatar {
+    height: 60px;
+    border-radius: 50%;
+}
+
+.card .title {
+    font-family: 'Inter';
+}
+
+.card .testimonial .testimonial-body {
+    font-family: 'Lato';
+    font-size: 16px;
+}
+
+.card-control {
+    margin-right: 5px;
+}
+
+.card-controls {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+}
